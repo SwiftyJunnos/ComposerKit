@@ -1,7 +1,7 @@
 import XCTest
-@testable import ChagokChagok
+@testable import Composer
 
-final class ChagokChagokTests: XCTestCase {
+final class ComposerTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest
