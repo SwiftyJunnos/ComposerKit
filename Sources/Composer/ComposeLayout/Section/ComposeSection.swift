@@ -9,4 +9,10 @@ import UIKit
 
 public struct ComposeSection {
     
+    // MARK: - Initializer
+    
+    public init() {
+        
+    }
+    
 }

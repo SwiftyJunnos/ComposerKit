@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD7997AB2AC33C7300BD9F3D /* HomeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7997AA2AC33C7300BD9F3D /* HomeSection.swift */; };
 		DDC8EDDE2AC16A9C003BC7E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDC8EDDD2AC16A9C003BC7E2 /* Assets.xcassets */; };
 		DDC8EDE12AC16A9C003BC7E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDC8EDDF2AC16A9C003BC7E2 /* LaunchScreen.storyboard */; };
 		DDC8EDE82AC28F71003BC7E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8EDD42AC16A9A003BC7E2 /* AppDelegate.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD7997AA2AC33C7300BD9F3D /* HomeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSection.swift; sourceTree = "<group>"; };
 		DDC8EDD12AC16A9A003BC7E2 /* ComposerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComposerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC8EDD42AC16A9A003BC7E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDC8EDD62AC16A9A003BC7E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				DDC8EDD42AC16A9A003BC7E2 /* AppDelegate.swift */,
 				DDC8EDD62AC16A9A003BC7E2 /* SceneDelegate.swift */,
 				DDC8EDD82AC16A9A003BC7E2 /* HomeViewController.swift */,
+				DD7997AA2AC33C7300BD9F3D /* HomeSection.swift */,
 				DDC8EDDD2AC16A9C003BC7E2 /* Assets.xcassets */,
 				DDC8EDDF2AC16A9C003BC7E2 /* LaunchScreen.storyboard */,
 				DDC8EDE22AC16A9C003BC7E2 /* Info.plist */,
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD7997AB2AC33C7300BD9F3D /* HomeSection.swift in Sources */,
 				DDC8EDEA2AC28F77003BC7E2 /* HomeViewController.swift in Sources */,
 				DDC8EDE92AC28F74003BC7E2 /* SceneDelegate.swift in Sources */,
 				DDC8EDE82AC28F71003BC7E2 /* AppDelegate.swift in Sources */,
