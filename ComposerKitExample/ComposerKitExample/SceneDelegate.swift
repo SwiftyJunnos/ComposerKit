@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  ChagokChagokExample
+//  ComposerExample
 //
 //  Created by 이창준 on 9/25/23.
 //
@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        let homeVC = HomeViewController()
+        let homeVC = MVCHomeViewController()
         let navigationVC = UINavigationController(rootViewController: homeVC)
         
         window.rootViewController = navigationVC
@@ -25,4 +25,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
 }
-

@@ -1,6 +1,6 @@
 //
 //  ComposeItem.swift
-//  Composer
+//  ComposerKit
 //
 //  Created by 이창준 on 9/26/23.
 //
@@ -11,9 +11,9 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
     
     // MARK: - Properties
     
-    private var contentInsets: NSDirectionalEdgeInsets
     private var widthDimension: NSCollectionLayoutDimension
     private var heightDimension: NSCollectionLayoutDimension
+    private var contentInsets: NSDirectionalEdgeInsets
     private var edgeSpacing: NSCollectionLayoutEdgeSpacing?
     
     private var size: NSCollectionLayoutSize {
@@ -25,7 +25,7 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
     
     // MARK: - Initializer
     
-    public init(
+    internal init(
         widthDimension: NSCollectionLayoutDimension = .fractionalWidth(1.0),
         heightDimension: NSCollectionLayoutDimension = .fractionalHeight(1.0),
         contentInsets: NSDirectionalEdgeInsets = .zero,
@@ -77,7 +77,7 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
 
 extension ComposeItem: BuildableItem {
     
-    // MARK: - Builder
+    // MARK: - Buildable
     
     func make() -> NSCollectionLayoutItem {
         return NSCollectionLayoutItem(

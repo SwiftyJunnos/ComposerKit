@@ -1,7 +1,7 @@
 //
-//  SectionBuilder.swift
+//  BuildableSection.swift
+//  ComposerKit
 //
-//  Composer
 //  Created by 이창준 on 9/26/23.
 //
 

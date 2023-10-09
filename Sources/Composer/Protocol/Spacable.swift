@@ -1,6 +1,6 @@
 //
 //  Spacable.swift
-//  Composer
+//  ComposerKit
 //
 //  Created by 이창준 on 9/28/23.
 //

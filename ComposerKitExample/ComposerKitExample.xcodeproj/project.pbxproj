@@ -7,21 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD7997AB2AC33C7300BD9F3D /* HomeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7997AA2AC33C7300BD9F3D /* HomeSection.swift */; };
+		DD53A59A2AD426DB00629F84 /* ComposerKit in Frameworks */ = {isa = PBXBuildFile; productRef = DD53A5992AD426DB00629F84 /* ComposerKit */; };
+		DD53A59D2AD4331000629F84 /* HomeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD53A59C2AD4331000629F84 /* HomeSection.swift */; };
+		DDA4BBB32AC715450014BA36 /* MVCHomeComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4BBB22AC715450014BA36 /* MVCHomeComposer.swift */; };
+		DDA4BBB52AC802070014BA36 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA4BBB42AC802070014BA36 /* HomeCell.swift */; };
 		DDC8EDDE2AC16A9C003BC7E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDC8EDDD2AC16A9C003BC7E2 /* Assets.xcassets */; };
 		DDC8EDE12AC16A9C003BC7E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDC8EDDF2AC16A9C003BC7E2 /* LaunchScreen.storyboard */; };
 		DDC8EDE82AC28F71003BC7E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8EDD42AC16A9A003BC7E2 /* AppDelegate.swift */; };
 		DDC8EDE92AC28F74003BC7E2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8EDD62AC16A9A003BC7E2 /* SceneDelegate.swift */; };
-		DDC8EDEA2AC28F77003BC7E2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8EDD82AC16A9A003BC7E2 /* HomeViewController.swift */; };
-		DDC8EDF32AC293EC003BC7E2 /* Composer in Frameworks */ = {isa = PBXBuildFile; productRef = DDC8EDF22AC293EC003BC7E2 /* Composer */; };
+		DDC8EDEA2AC28F77003BC7E2 /* MVCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC8EDD82AC16A9A003BC7E2 /* MVCHomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD7997AA2AC33C7300BD9F3D /* HomeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSection.swift; sourceTree = "<group>"; };
-		DDC8EDD12AC16A9A003BC7E2 /* ComposerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComposerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD53A59C2AD4331000629F84 /* HomeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSection.swift; sourceTree = "<group>"; };
+		DDA4BBB22AC715450014BA36 /* MVCHomeComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVCHomeComposer.swift; sourceTree = "<group>"; };
+		DDA4BBB42AC802070014BA36 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
+		DDC8EDD12AC16A9A003BC7E2 /* ComposerKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComposerKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDC8EDD42AC16A9A003BC7E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDC8EDD62AC16A9A003BC7E2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DDC8EDD82AC16A9A003BC7E2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		DDC8EDD82AC16A9A003BC7E2 /* MVCHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVCHomeViewController.swift; sourceTree = "<group>"; };
 		DDC8EDDD2AC16A9C003BC7E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DDC8EDE02AC16A9C003BC7E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DDC8EDE22AC16A9C003BC7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -32,17 +36,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDC8EDF32AC293EC003BC7E2 /* Composer in Frameworks */,
+				DD53A59A2AD426DB00629F84 /* ComposerKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DDA4BBB82AC83B100014BA36 /* MVC */ = {
+			isa = PBXGroup;
+			children = (
+				DDA4BBB22AC715450014BA36 /* MVCHomeComposer.swift */,
+				DDC8EDD82AC16A9A003BC7E2 /* MVCHomeViewController.swift */,
+			);
+			path = MVC;
+			sourceTree = "<group>";
+		};
 		DDC8EDC82AC16A9A003BC7E2 = {
 			isa = PBXGroup;
 			children = (
-				DDC8EDD32AC16A9A003BC7E2 /* ComposerExample */,
+				DDC8EDD32AC16A9A003BC7E2 /* ComposerKitExample */,
 				DDC8EDD22AC16A9A003BC7E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,31 +63,32 @@
 		DDC8EDD22AC16A9A003BC7E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DDC8EDD12AC16A9A003BC7E2 /* ComposerExample.app */,
+				DDC8EDD12AC16A9A003BC7E2 /* ComposerKitExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DDC8EDD32AC16A9A003BC7E2 /* ComposerExample */ = {
+		DDC8EDD32AC16A9A003BC7E2 /* ComposerKitExample */ = {
 			isa = PBXGroup;
 			children = (
+				DDA4BBB82AC83B100014BA36 /* MVC */,
 				DDC8EDD42AC16A9A003BC7E2 /* AppDelegate.swift */,
-				DDC8EDD62AC16A9A003BC7E2 /* SceneDelegate.swift */,
-				DDC8EDD82AC16A9A003BC7E2 /* HomeViewController.swift */,
-				DD7997AA2AC33C7300BD9F3D /* HomeSection.swift */,
 				DDC8EDDD2AC16A9C003BC7E2 /* Assets.xcassets */,
-				DDC8EDDF2AC16A9C003BC7E2 /* LaunchScreen.storyboard */,
+				DDA4BBB42AC802070014BA36 /* HomeCell.swift */,
 				DDC8EDE22AC16A9C003BC7E2 /* Info.plist */,
+				DDC8EDDF2AC16A9C003BC7E2 /* LaunchScreen.storyboard */,
+				DDC8EDD62AC16A9A003BC7E2 /* SceneDelegate.swift */,
+				DD53A59C2AD4331000629F84 /* HomeSection.swift */,
 			);
-			path = ComposerExample;
+			path = ComposerKitExample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DDC8EDD02AC16A9A003BC7E2 /* ComposerExample */ = {
+		DDC8EDD02AC16A9A003BC7E2 /* ComposerKitExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DDC8EDE52AC16A9C003BC7E2 /* Build configuration list for PBXNativeTarget "ComposerExample" */;
+			buildConfigurationList = DDC8EDE52AC16A9C003BC7E2 /* Build configuration list for PBXNativeTarget "ComposerKitExample" */;
 			buildPhases = (
 				DDC8EDCD2AC16A9A003BC7E2 /* Sources */,
 				DDC8EDCE2AC16A9A003BC7E2 /* Frameworks */,
@@ -84,12 +98,12 @@
 			);
 			dependencies = (
 			);
-			name = ComposerExample;
+			name = ComposerKitExample;
 			packageProductDependencies = (
-				DDC8EDF22AC293EC003BC7E2 /* Composer */,
+				DD53A5992AD426DB00629F84 /* ComposerKit */,
 			);
 			productName = ChagokChagokExample;
-			productReference = DDC8EDD12AC16A9A003BC7E2 /* ComposerExample.app */;
+			productReference = DDC8EDD12AC16A9A003BC7E2 /* ComposerKitExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -107,7 +121,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DDC8EDCC2AC16A9A003BC7E2 /* Build configuration list for PBXProject "ComposerExample" */;
+			buildConfigurationList = DDC8EDCC2AC16A9A003BC7E2 /* Build configuration list for PBXProject "ComposerKitExample" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -123,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DDC8EDD02AC16A9A003BC7E2 /* ComposerExample */,
+				DDC8EDD02AC16A9A003BC7E2 /* ComposerKitExample */,
 			);
 		};
 /* End PBXProject section */
@@ -145,10 +159,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD7997AB2AC33C7300BD9F3D /* HomeSection.swift in Sources */,
-				DDC8EDEA2AC28F77003BC7E2 /* HomeViewController.swift in Sources */,
+				DDA4BBB32AC715450014BA36 /* MVCHomeComposer.swift in Sources */,
+				DDC8EDEA2AC28F77003BC7E2 /* MVCHomeViewController.swift in Sources */,
+				DD53A59D2AD4331000629F84 /* HomeSection.swift in Sources */,
 				DDC8EDE92AC28F74003BC7E2 /* SceneDelegate.swift in Sources */,
 				DDC8EDE82AC28F71003BC7E2 /* AppDelegate.swift in Sources */,
+				DDA4BBB52AC802070014BA36 /* HomeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +310,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XW996HTK32;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ComposerExample/Info.plist;
+				INFOPLIST_FILE = ComposerKitExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -324,7 +340,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XW996HTK32;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ComposerExample/Info.plist;
+				INFOPLIST_FILE = ComposerKitExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -348,7 +364,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DDC8EDCC2AC16A9A003BC7E2 /* Build configuration list for PBXProject "ComposerExample" */ = {
+		DDC8EDCC2AC16A9A003BC7E2 /* Build configuration list for PBXProject "ComposerKitExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DDC8EDE32AC16A9C003BC7E2 /* Debug */,
@@ -357,7 +373,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DDC8EDE52AC16A9C003BC7E2 /* Build configuration list for PBXNativeTarget "ComposerExample" */ = {
+		DDC8EDE52AC16A9C003BC7E2 /* Build configuration list for PBXNativeTarget "ComposerKitExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DDC8EDE62AC16A9C003BC7E2 /* Debug */,
@@ -376,9 +392,9 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DDC8EDF22AC293EC003BC7E2 /* Composer */ = {
+		DD53A5992AD426DB00629F84 /* ComposerKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Composer;
+			productName = ComposerKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

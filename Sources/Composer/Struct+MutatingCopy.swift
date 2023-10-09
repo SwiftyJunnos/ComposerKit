@@ -1,7 +1,7 @@
 //
 //  Struct+MutatingCopy.swift
+//  ComposerKit
 //
-//  Composer
 //  Created by 이창준 on 9/27/23.
 //
 

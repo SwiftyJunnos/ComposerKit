@@ -4,20 +4,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "Composer",
+    name: "ComposerKit",
     platforms: [
         .iOS(.v15)
     ],
     products: [
         .library(
-            name: "Composer",
-            targets: ["Composer"]),
+            name: "ComposerKit",
+            targets: ["ComposerKit"]),
     ],
     targets: [
         .target(
-            name: "Composer"),
+            name: "ComposerKit"),
         .testTarget(
-            name: "ComposerTests",
-            dependencies: ["Composer"]),
+            name: "ComposerKitTests",
+            dependencies: ["ComposerKit"]),
     ]
 )
