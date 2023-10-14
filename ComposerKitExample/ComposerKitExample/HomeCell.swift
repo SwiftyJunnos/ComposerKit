@@ -18,12 +18,21 @@ final class HomeCell: UICollectionViewCell {
     private let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 13)
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .systemBlue
+        
+        addSubview(label)
+        let constraints = [
+            label.centerXAnchor.constraint(equalTo: centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ]
+        NSLayoutConstraint.activate(constraints)
     }
     
     required init?(coder: NSCoder) {

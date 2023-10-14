@@ -18,7 +18,7 @@ public struct UICollectionViewComposeLayout {
     // MARK: - Initializer
     
     public init(
-        @LayoutBuilder sectionProvider: @escaping SectionProvider
+        @SectionBuilder sectionProvider: @escaping SectionProvider
     ) {
         self.sectionProvider = sectionProvider
     }
@@ -28,8 +28,8 @@ public struct UICollectionViewComposeLayout {
 extension UICollectionViewComposeLayout: BuildableLayout {
     func make() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout(
-            sectionProvider: { section, environment in
-                return sectionProvider(environment)[section].make()
+            sectionProvider: { sectionIndex, environment in
+                return sectionProvider(environment)[sectionIndex].make()
             },
             configuration: UICollectionViewCompositionalLayoutConfiguration()
         )

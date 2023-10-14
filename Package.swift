@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "ComposerKit",
     platforms: [
-        .iOS(.v15)
+        .iOS(.v13)
     ],
     products: [
         .library(

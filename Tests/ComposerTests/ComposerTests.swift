@@ -1,5 +1,5 @@
 import XCTest
-@testable import Composer
+@testable import ComposerKit
 
 final class ComposerTests: XCTestCase {
     func testExample() throws {

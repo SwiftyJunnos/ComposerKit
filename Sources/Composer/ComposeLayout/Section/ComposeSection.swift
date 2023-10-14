@@ -7,16 +7,21 @@
 
 import UIKit
 
+public typealias Section = ComposerKit.ComposeSection
+
 public struct ComposeSection {
+    public typealias GroupProvider = () -> ComposeGroup
     
     // MARK: - Properties
     
-    private var group: ComposeGroup
+    private let groupProvider: GroupProvider
     
     // MARK: - Initializer
     
-    public init(group: () -> ComposeGroup) {
-        self.group = group()
+    public init(
+        @GroupBuilder groupProvider: @escaping GroupProvider
+    ) {
+        self.groupProvider = groupProvider
     }
     
 }
@@ -26,7 +31,7 @@ extension ComposeSection: BuildableSection {
     // MARK: - Buildable
     
     func make() -> NSCollectionLayoutSection {
-        return NSCollectionLayoutSection(group: group.make())
+        return NSCollectionLayoutSection(group: groupProvider().make())
     }
     
 }

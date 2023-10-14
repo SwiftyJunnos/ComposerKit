@@ -16,15 +16,21 @@ final class MVCHomeComposer: Composer {
     var collectionView: UICollectionView
     
     lazy var layout = UICollectionViewComposeLayout { env in
-        ComposeSection {
-            .full()
-            .subItems(.manual([.full()]))
+        Section {
+            Group(style: .full) {
+                Item(style: .full)
+            }
+        }
+        
+        Section {
+            Group(style: .grid) {
+                Item(style: .grid)
+                    .size(.absolute(50))
+            }
         }
     }
     
-    var snapshot: NSDiffableDataSourceSnapshot<HomeSection, HomeCellModel>? {
-        didSet { print(snapshot) }
-    }
+    var snapshot: NSDiffableDataSourceSnapshot<HomeSection, HomeCellModel>?
     
     // MARK: - Initializer
     

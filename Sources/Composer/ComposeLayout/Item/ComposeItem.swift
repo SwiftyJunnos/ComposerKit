@@ -7,44 +7,43 @@
 
 import UIKit
 
+public typealias Item = ComposerKit.ComposeItem
+
 public struct ComposeItem: Resizable, Insettable, Spacable {
+    
+    // MARK: - Layout Parameters
+    
+    struct ItemParameters: LayoutParameters {
+        var widthDimension: NSCollectionLayoutDimension = .estimated(1.0)
+        var heightDimension: NSCollectionLayoutDimension = .estimated(1.0)
+        var contentInsets: NSDirectionalEdgeInsets = .zero
+        var edgeSpacing: NSCollectionLayoutEdgeSpacing?
+    }
     
     // MARK: - Properties
     
-    private var widthDimension: NSCollectionLayoutDimension
-    private var heightDimension: NSCollectionLayoutDimension
-    private var contentInsets: NSDirectionalEdgeInsets
-    private var edgeSpacing: NSCollectionLayoutEdgeSpacing?
+    private var layoutParameters: ItemParameters
     
     private var size: NSCollectionLayoutSize {
-        return NSCollectionLayoutSize(
-            widthDimension: widthDimension,
-            heightDimension: heightDimension
-        )
+        return layoutParameters.size
     }
     
     // MARK: - Initializer
     
-    internal init(
-        widthDimension: NSCollectionLayoutDimension = .fractionalWidth(1.0),
-        heightDimension: NSCollectionLayoutDimension = .fractionalHeight(1.0),
-        contentInsets: NSDirectionalEdgeInsets = .zero,
-        edgeSpacing: NSCollectionLayoutEdgeSpacing? = nil
+    public init(
+        style: Style
     ) {
-        self.widthDimension = widthDimension
-        self.heightDimension = heightDimension
-        self.contentInsets = contentInsets
-        self.edgeSpacing = edgeSpacing
+        self.layoutParameters = style.layoutParameters
     }
     
     // MARK: - Resizable
     
     public func widthDimension(_ width: NSCollectionLayoutDimension) -> ComposeItem {
-        return mutatingCopy(self) { $0.widthDimension = width }
+        return mutatingCopy(self) { $0.layoutParameters.widthDimension = width }
     }
     
     public func heightDimension(_ height: NSCollectionLayoutDimension) -> ComposeItem {
-        return mutatingCopy(self) { $0.heightDimension = height }
+        return mutatingCopy(self) { $0.layoutParameters.heightDimension = height }
     }
     
     // MARK: - Insettable
@@ -56,7 +55,8 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
         trailing: CGFloat
     ) -> ComposeItem {
         return mutatingCopy(self) { item in
-            item.contentInsets = NSDirectionalEdgeInsets(top: top, leading: leading, bottom: bottom, trailing: trailing)
+            item.layoutParameters.contentInsets = NSDirectionalEdgeInsets(
+                top: top, leading: leading, bottom: bottom, trailing: trailing)
         }
     }
     
@@ -69,7 +69,8 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
         trailing: NSCollectionLayoutSpacing
     ) -> ComposeItem {
         return mutatingCopy(self) { item in
-            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: leading, top: top, trailing: trailing, bottom: bottom)
+            item.layoutParameters.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                leading: leading, top: top, trailing: trailing, bottom: bottom)
         }
     }
     

@@ -23,6 +23,7 @@ final class MVCHomeViewController: UIViewController, ComposableView {
             collectionViewLayout: UICollectionViewLayout()
         )
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
@@ -47,15 +48,21 @@ final class MVCHomeViewController: UIViewController, ComposableView {
         super.viewDidLoad()
         configureUI()
         configureCollectionView()
-        print(composer)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         var snapshot: MVCHomeSnapshot = .init()
-        snapshot.appendSections([.home])
-        snapshot.appendItems([.init(number: 1)], toSection: .home)
+        snapshot.appendSections([.home, .list])
+        snapshot.appendItems(
+            (1...10).map { HomeCellModel(number: $0) },
+            toSection: .home
+        )
+        snapshot.appendItems(
+            (11...22).map { HomeCellModel(number: $0) },
+            toSection: .list
+        )
         dataSource?.apply(snapshot)
         currentSnapshot?.send(snapshot)
     }
@@ -64,7 +71,6 @@ final class MVCHomeViewController: UIViewController, ComposableView {
     
     func bind(composer: MVCHomeComposer) {
         currentSnapshot?
-            .print()
             .assign(to: \.snapshot, on: self.composer)
             .store(in: &cancellables)
     }
@@ -101,6 +107,8 @@ private extension MVCHomeViewController {
                 item: model
             )}
         )
+        
+        _ = composer
     }
     
 }
