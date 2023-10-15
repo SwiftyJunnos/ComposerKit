@@ -9,6 +9,7 @@ import UIKit
 
 extension ComposeItem {
     
+    @frozen
     public enum Style {
         /// An item that completely fills the entire ``ComposeGroup`` with just a single item itself.
         case full

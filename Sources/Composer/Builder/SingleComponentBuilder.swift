@@ -1,5 +1,5 @@
 //
-//  GroupBuilder.swift
+//  SingleComponentBuilder.swift
 //  ComposerKit
 //
 //  Created by 이창준 on 10/14/23.
@@ -8,7 +8,7 @@
 /// ``NSCollectionLayoutSection`` can only have single group.
 /// Thus, ``GroupBuilder`` returns a single ``ComposeGroup`` instead of Array unlike ``ComposeItem`` and ``ComposeSection``.
 @resultBuilder
-public struct GroupBuilder {
+public struct SingleComponentBuilder {
     
     public static func buildBlock(_ components: ComposeGroup...) -> ComposeGroup {
         guard let group = components.first else {

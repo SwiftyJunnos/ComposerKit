@@ -19,7 +19,7 @@ public struct ComposeSection {
     // MARK: - Initializer
     
     public init(
-        @GroupBuilder groupProvider: @escaping GroupProvider
+        @SingleComponentBuilder groupProvider: @escaping GroupProvider
     ) {
         self.groupProvider = groupProvider
     }
@@ -30,7 +30,7 @@ extension ComposeSection: BuildableSection {
     
     // MARK: - Buildable
     
-    func make() -> NSCollectionLayoutSection {
+    public func make() -> NSCollectionLayoutSection {
         return NSCollectionLayoutSection(group: groupProvider().make())
     }
     

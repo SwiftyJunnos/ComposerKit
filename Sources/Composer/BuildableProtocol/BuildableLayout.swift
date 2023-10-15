@@ -7,6 +7,6 @@
 
 import UIKit
 
-internal protocol BuildableLayout {
+public protocol BuildableLayout {
     func make() -> UICollectionViewCompositionalLayout
 }

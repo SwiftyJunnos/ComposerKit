@@ -30,10 +30,12 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
     
     // MARK: - Initializer
     
-    public init(
-        style: Style
-    ) {
-        self.layoutParameters = style.layoutParameters
+    public init(style: Style? = nil) {
+        if let style {
+            self.layoutParameters = style.layoutParameters
+        } else {
+            self.layoutParameters = ItemParameters()
+        }
     }
     
     // MARK: - Resizable
@@ -80,7 +82,7 @@ extension ComposeItem: BuildableItem {
     
     // MARK: - Buildable
     
-    func make() -> NSCollectionLayoutItem {
+    public func make() -> NSCollectionLayoutItem {
         return NSCollectionLayoutItem(
             layoutSize: size,
             supplementaryItems: [] // TODO: Supplementary Item 추가

@@ -11,34 +11,26 @@ import UIKit
 import ComposerKit
 
 final class MVCHomeViewController: UIViewController, ComposableView {
-    typealias MVCHomeDataSource = UICollectionViewDiffableDataSource<HomeSection, HomeCellModel>
-    typealias MVCHomeCellRegistration = UICollectionView.CellRegistration<HomeCell, HomeCellModel>
-    typealias MVCHomeSnapshot = NSDiffableDataSourceSnapshot<HomeSection, HomeCellModel>
     
     // MARK: - Components
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(
-            frame: view.frame,
+            frame: view.bounds,
             collectionViewLayout: UICollectionViewLayout()
         )
+        collectionView.backgroundColor = .black
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
     // MARK: - Properties
     
-    lazy var composer = {
-        let composer = MVCHomeComposer(collectionView: collectionView)
-        bind(composer: composer)
-        composer.build()
-        return composer
-    }()
+    lazy var composer: MVCHomeComposer? = .init(collectionView: collectionView)
     
-    private var dataSource: MVCHomeDataSource?
-    
-    private var currentSnapshot: PassthroughSubject<MVCHomeSnapshot?, Never>?
+    private var datas = CurrentValueSubject<[HomeCellModel], Never>([])
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -47,31 +39,25 @@ final class MVCHomeViewController: UIViewController, ComposableView {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        configureCollectionView()
+        
+        assign(composer: composer)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        var snapshot: MVCHomeSnapshot = .init()
-        snapshot.appendSections([.home, .list])
-        snapshot.appendItems(
-            (1...10).map { HomeCellModel(number: $0) },
-            toSection: .home
+        datas.send(
+            (1...25).map { HomeCellModel(number: $0) }
         )
-        snapshot.appendItems(
-            (11...22).map { HomeCellModel(number: $0) },
-            toSection: .list
-        )
-        dataSource?.apply(snapshot)
-        currentSnapshot?.send(snapshot)
     }
     
     // MARK: - Composer
     
     func bind(composer: MVCHomeComposer) {
-        currentSnapshot?
-            .assign(to: \.snapshot, on: self.composer)
+        datas
+            .sink { datas in
+                composer.bind(datas)
+            }
             .store(in: &cancellables)
     }
     
@@ -83,32 +69,6 @@ private extension MVCHomeViewController {
     
     func configureUI() {
         view.addSubview(collectionView)
-        let constraints = [
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ]
-        NSLayoutConstraint.activate(constraints)
-    }
-    
-    // MARK: - CollectionView Configuration
-    
-    func configureCollectionView() {
-        let cellRegistration = MVCHomeCellRegistration { cell, _, model in
-            cell.bind(model)
-        }
-        
-        dataSource = MVCHomeDataSource(collectionView: collectionView,
-                                       cellProvider: { collectionView, indexPath, model in
-            collectionView.dequeueConfiguredReusableCell(
-                using: cellRegistration,
-                for: indexPath,
-                item: model
-            )}
-        )
-        
-        _ = composer
     }
     
 }

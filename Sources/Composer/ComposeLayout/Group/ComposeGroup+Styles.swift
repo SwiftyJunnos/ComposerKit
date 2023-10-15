@@ -9,6 +9,7 @@ import Foundation
 
 extension ComposeGroup {
     
+    @frozen
     public enum Style {
         /// A group that completely fills the entire ``ComposeSection`` with just a single group itself.
         case full

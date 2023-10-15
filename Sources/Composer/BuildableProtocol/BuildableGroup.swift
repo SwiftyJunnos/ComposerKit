@@ -7,6 +7,6 @@
 
 import UIKit
 
-internal protocol BuildableGroup {
+public protocol BuildableGroup: BuildableItem {
     func make() -> NSCollectionLayoutGroup
 }

@@ -15,6 +15,10 @@ struct HomeCellModel: ItemModelType {
 
 final class HomeCell: UICollectionViewCell {
     
+    static let randomColors: [UIColor] = [
+        .systemRed, .systemBlue, .systemGreen, .systemYellow, .systemPink, .systemOrange, .systemCyan
+    ]
+    
     private let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -25,7 +29,6 @@ final class HomeCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .systemBlue
         
         addSubview(label)
         let constraints = [
@@ -41,6 +44,7 @@ final class HomeCell: UICollectionViewCell {
     
     func bind(_ model: HomeCellModel) {
         self.label.text = String(model.number)
+        self.backgroundColor = HomeCell.randomColors.randomElement()
     }
     
 }

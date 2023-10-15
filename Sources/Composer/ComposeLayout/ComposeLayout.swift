@@ -9,7 +9,7 @@ import UIKit
 
 @MainActor
 public struct UICollectionViewComposeLayout {
-    public typealias SectionProvider = (NSCollectionLayoutEnvironment) -> [ComposeSection]
+    public typealias SectionProvider = (NSCollectionLayoutEnvironment) -> [BuildableSection]
     
     // MARK: - Properties
     
@@ -26,7 +26,7 @@ public struct UICollectionViewComposeLayout {
 }
 
 extension UICollectionViewComposeLayout: BuildableLayout {
-    func make() -> UICollectionViewCompositionalLayout {
+    public func make() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout(
             sectionProvider: { sectionIndex, environment in
                 return sectionProvider(environment)[sectionIndex].make()

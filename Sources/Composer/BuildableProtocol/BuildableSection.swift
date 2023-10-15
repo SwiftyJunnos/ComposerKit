@@ -7,6 +7,6 @@
 
 import UIKit
 
-internal protocol BuildableSection {
+public protocol BuildableSection {
     func make() -> NSCollectionLayoutSection
 }

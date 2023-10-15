@@ -10,10 +10,11 @@ import UIKit
 public typealias Group = ComposerKit.ComposeGroup
 
 public struct ComposeGroup: Resizable, Insettable, Spacable {
-    public typealias ItemProvider = () -> [ComposeItem]
+    public typealias ItemProvider = () -> [BuildableItem]
     
     // MARK: - Enums
     
+    @frozen
     public enum Direction {
         case horizontal, vertical
     }
@@ -41,10 +42,14 @@ public struct ComposeGroup: Resizable, Insettable, Spacable {
     // MARK: - Initializer
     
     public init(
-        style: Style,
+        style: Style? = nil,
         @ItemBuilder itemProvider: @escaping ItemProvider
     ) {
-        self.layoutParameters = style.layoutParameters
+        if let style {
+            self.layoutParameters = style.layoutParameters
+        } else {
+            self.layoutParameters = GroupParameters(direction: .horizontal)
+        }
         self.itemProvider = itemProvider
     }
     
@@ -93,6 +98,20 @@ extension ComposeGroup: BuildableGroup {
     // MARK: - Buildable
     
     public func make() -> NSCollectionLayoutGroup {
+        return makeGroup()
+    }
+    
+    public func make() -> NSCollectionLayoutItem {
+        return makeGroup()
+    }
+    
+}
+
+private extension ComposeGroup {
+    
+    // MARK: - Private Group Maker
+    
+    func makeGroup() -> NSCollectionLayoutGroup {
         return group(
             size: NSCollectionLayoutSize(
                 widthDimension: layoutParameters.widthDimension,
@@ -101,12 +120,6 @@ extension ComposeGroup: BuildableGroup {
             items: itemProvider().map { $0.make() }
         )
     }
-    
-}
-
-private extension ComposeGroup {
-    
-    // MARK: - Private Group Maker
     
     func group(
         size: NSCollectionLayoutSize,
