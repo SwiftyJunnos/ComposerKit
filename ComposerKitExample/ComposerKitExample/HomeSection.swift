@@ -7,6 +7,6 @@
 
 import ComposerKit
 
-enum HomeSection: SectionModelType {
+enum HomeSection: Hashable {
     case home, list
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Internal data type to store several properties for drawing layout.
 internal protocol LayoutParameters {
     var widthDimension: NSCollectionLayoutDimension { get set }
     var heightDimension: NSCollectionLayoutDimension { get set }

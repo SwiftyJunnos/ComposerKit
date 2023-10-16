@@ -9,7 +9,7 @@ import UIKit
 
 import ComposerKit
 
-struct HomeCellModel: ItemModelType {
+struct HomeCellModel: Hashable {
     let number: Int
 }
 

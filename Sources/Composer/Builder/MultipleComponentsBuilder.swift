@@ -7,6 +7,8 @@
 
 typealias SectionBuilder = MultipleComponentsBuilder<BuildableSection>
 typealias ItemBuilder = MultipleComponentsBuilder<BuildableItem>
+typealias BoundaryItemBuilder = MultipleComponentsBuilder<BuildableBoundaryItem>
+typealias DecorationItemBuilder = MultipleComponentsBuilder<BuildableDecorationItem>
 
 @resultBuilder
 public struct MultipleComponentsBuilder<ComposeComponent> {
@@ -37,6 +39,10 @@ public struct MultipleComponentsBuilder<ComposeComponent> {
     
     public static func buildArray(_ components: [ComposeComponent]) -> [ComposeComponent] {
         return components
+    }
+    
+    public static func buildArray(_ components: [[ComposeComponent]]) -> [ComposeComponent] {
+        return components.flatMap { $0 }
     }
     
 }

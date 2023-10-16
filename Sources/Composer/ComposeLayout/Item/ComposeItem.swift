@@ -9,7 +9,7 @@ import UIKit
 
 public typealias Item = ComposerKit.ComposeItem
 
-public struct ComposeItem: Resizable, Insettable, Spacable {
+public struct ComposeItem: Composable, Resizable, Insettable, Spacable {
     
     // MARK: - Layout Parameters
     
@@ -22,11 +22,7 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
     
     // MARK: - Properties
     
-    private var layoutParameters: ItemParameters
-    
-    private var size: NSCollectionLayoutSize {
-        return layoutParameters.size
-    }
+    var layoutParameters: ItemParameters
     
     // MARK: - Initializer
     
@@ -41,11 +37,11 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
     // MARK: - Resizable
     
     public func widthDimension(_ width: NSCollectionLayoutDimension) -> ComposeItem {
-        return mutatingCopy(self) { $0.layoutParameters.widthDimension = width }
+        return with(\.widthDimension, value: width)
     }
     
     public func heightDimension(_ height: NSCollectionLayoutDimension) -> ComposeItem {
-        return mutatingCopy(self) { $0.layoutParameters.heightDimension = height }
+        return with(\.heightDimension, value: height)
     }
     
     // MARK: - Insettable
@@ -56,10 +52,9 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
         bottom: CGFloat,
         trailing: CGFloat
     ) -> ComposeItem {
-        return mutatingCopy(self) { item in
-            item.layoutParameters.contentInsets = NSDirectionalEdgeInsets(
-                top: top, leading: leading, bottom: bottom, trailing: trailing)
-        }
+        return with(\.contentInsets, value: NSDirectionalEdgeInsets(
+            top: top, leading: leading, bottom: bottom, trailing: trailing)
+        )
     }
     
     // MARK: - Spacable
@@ -70,10 +65,9 @@ public struct ComposeItem: Resizable, Insettable, Spacable {
         bottom: NSCollectionLayoutSpacing,
         trailing: NSCollectionLayoutSpacing
     ) -> ComposeItem {
-        return mutatingCopy(self) { item in
-            item.layoutParameters.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-                leading: leading, top: top, trailing: trailing, bottom: bottom)
-        }
+        return with(\.edgeSpacing, value: NSCollectionLayoutEdgeSpacing(
+            leading: leading, top: top, trailing: trailing, bottom: bottom)
+        )
     }
     
 }
@@ -83,10 +77,10 @@ extension ComposeItem: BuildableItem {
     // MARK: - Buildable
     
     public func make() -> NSCollectionLayoutItem {
-        return NSCollectionLayoutItem(
-            layoutSize: size,
-            supplementaryItems: [] // TODO: Supplementary Item 추가
-        )
+        let item = NSCollectionLayoutItem(layoutSize: size, supplementaryItems: [])
+        item.contentInsets = layoutParameters.contentInsets
+        item.edgeSpacing = layoutParameters.edgeSpacing
+        return item
     }
     
 }

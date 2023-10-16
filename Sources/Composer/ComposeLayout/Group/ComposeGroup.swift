@@ -9,7 +9,7 @@ import UIKit
 
 public typealias Group = ComposerKit.ComposeGroup
 
-public struct ComposeGroup: Resizable, Insettable, Spacable {
+public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
     public typealias ItemProvider = () -> [BuildableItem]
     
     // MARK: - Enums
@@ -31,13 +31,9 @@ public struct ComposeGroup: Resizable, Insettable, Spacable {
     
     // MARK: - Properties
     
-    private var layoutParameters: GroupParameters
+    var layoutParameters: GroupParameters
     
     private let itemProvider: ItemProvider
-    
-    private var size: NSCollectionLayoutSize {
-        return layoutParameters.size
-    }
     
     // MARK: - Initializer
     
@@ -56,11 +52,11 @@ public struct ComposeGroup: Resizable, Insettable, Spacable {
     // MARK: - Resizable
     
     public func widthDimension(_ width: NSCollectionLayoutDimension) -> ComposeGroup {
-        return mutatingCopy(self) { $0.layoutParameters.widthDimension = width }
+        return with(\.widthDimension, value: width)
     }
     
     public func heightDimension(_ height: NSCollectionLayoutDimension) -> ComposeGroup {
-        return mutatingCopy(self) { $0.layoutParameters.heightDimension = height }
+        return with(\.heightDimension, value: height)
     }
     
     // MARK: - Insettable
@@ -71,10 +67,9 @@ public struct ComposeGroup: Resizable, Insettable, Spacable {
         bottom: CGFloat,
         trailing: CGFloat
     ) -> ComposeGroup {
-        return mutatingCopy(self) { group in
-            group.layoutParameters.contentInsets = NSDirectionalEdgeInsets(
-                top: top, leading: leading, bottom: bottom, trailing: trailing)
-        }
+        return with(\.contentInsets, value: NSDirectionalEdgeInsets(
+            top: top, leading: leading, bottom: bottom, trailing: trailing)
+        )
     }
     
     // MARK: - Spacable
@@ -85,10 +80,9 @@ public struct ComposeGroup: Resizable, Insettable, Spacable {
         bottom: NSCollectionLayoutSpacing,
         trailing: NSCollectionLayoutSpacing
     ) -> ComposeGroup {
-        return mutatingCopy(self) { item in
-            item.layoutParameters.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-                leading: leading, top: top, trailing: trailing, bottom: bottom)
-        }
+        return with(\.edgeSpacing, value: NSCollectionLayoutEdgeSpacing(
+            leading: leading, top: top, trailing: trailing, bottom: bottom)
+        )
     }
     
 }

@@ -25,6 +25,14 @@ final class MVCHomeComposer: Composer {
                 Item(style: .full)
             }
         }
+        .interGroupSpacing(8.0)
+        .boundaryItems {
+            BoundaryItem(.header)
+            BoundaryItem(.footer)
+        }
+        .decorationItems {
+            DecorationItem(.background)
+        }
         
         Section {
             Group(style: .grid) {
@@ -32,8 +40,8 @@ final class MVCHomeComposer: Composer {
 //                    Item(style: .grid)
 //                }
                 
-                Item(style: .grid)
-                    .size(.estimated(50))
+//                Item(style: .grid)
+//                    .size(.estimated(50))
                 
 //                Item()
 //                    .widthDimension(.fractionalHeight(1.0))
@@ -43,6 +51,11 @@ final class MVCHomeComposer: Composer {
 //                } else {
 //                    Item()
 //                }
+                
+                for _ in (1...10) {
+                    Item()
+                        .size(.fractionalWidth(1.0 / 10))
+                }
             }
         }
     }

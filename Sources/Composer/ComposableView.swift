@@ -38,7 +38,7 @@ public extension ComposableView {
     func assign(composer: Composer?) {
         if let composer {
             self.bind(composer: composer)
-            composer.play()
+            composer.compose()
         }
     }
     
