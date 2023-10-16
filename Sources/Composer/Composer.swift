@@ -17,8 +17,8 @@ import UIKit
 /// the `UICollectionView`.
 @MainActor
 public protocol Composer: AnyObject {
-    associatedtype SectionModelType: ComposerKit.SectionModelType
-    associatedtype ItemModelType: ComposerKit.ItemModelType
+    associatedtype SectionModelType: Hashable
+    associatedtype ItemModelType: Hashable
     
     /// A `UICollectionView` managed by `Composer`.
     var collectionView: UICollectionView { get set }
@@ -50,41 +50,25 @@ public protocol Composer: AnyObject {
     
     init(collectionView: UICollectionView)
     
-    func play(using layout: UICollectionViewComposeLayout)
+    /// Apply the specified ``UICollectionViewComposeLayout`` to managing `UICollectionView`.
+    /// - Parameters:
+    ///   - layout: New layout for updating `UICollectionView`.
+    ///   - animated: A flag indicating whether to animate the layout change. (Default: `true`)
+    func compose(using layout: UICollectionViewComposeLayout, animated: Bool)
 }
 
 extension Composer {
-    
-    var collectionView: UICollectionView {
-        get {
-            return collectionView
-        }
-        set {
-            self.collectionView = newValue
-            self.play(using: self.composeLayout)
-        }
-    }
-    
-    var composeLayout: UICollectionViewComposeLayout {
-        get {
-            return composeLayout
-        }
-        set {
-            self.composeLayout = newValue
-            self.play(using: newValue)
-        }
-    }
     
     public var currentSnapshot: NSDiffableDataSourceSnapshot<SectionModelType, ItemModelType>? {
         return self.dataSource?.snapshot()
     }
     
-    public func play(using layout: UICollectionViewComposeLayout) {
-        collectionView.setCollectionViewLayout(layout.make(), animated: true)
+    public func compose(using layout: UICollectionViewComposeLayout, animated: Bool = true) {
+        collectionView.setCollectionViewLayout(layout.make(), animated: animated)
     }
     
-    public func play() {
-        play(using: composeLayout)
+    public func compose() {
+        compose(using: composeLayout)
     }
     
 }
