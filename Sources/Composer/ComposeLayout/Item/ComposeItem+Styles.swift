@@ -14,9 +14,13 @@ extension ComposeItem {
         /// An item that completely fills the entire ``ComposeGroup`` with just a single item itself.
         case full
         /// An item arranged vertically while filling horizontally.
-        case listRow
+        case listRow(height: NSCollectionLayoutDimension)
         /// An item having individual ``NSCollectionLayoutDimension`` for both width and height.
-        case grid
+        ///
+        /// > Note:
+        /// > Should specify both `widthDimension` and `heightDimension` since their default
+        /// value are both `.estimated(1.0)`.
+        case grid(width: NSCollectionLayoutDimension, height: NSCollectionLayoutDimension)
         
         internal var layoutParameters: ItemParameters {
             switch self {
@@ -25,12 +29,16 @@ extension ComposeItem {
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .fractionalHeight(1.0)
                 )
-            case .listRow:
+            case let .listRow(heightDimension):
                 return .init(
-                    widthDimension: .fractionalWidth(1.0)
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: heightDimension
                 )
-            case .grid:
-                return .init()
+            case let .grid(widthDimension, heightDimension):
+                return .init(
+                    widthDimension: widthDimension,
+                    heightDimension: heightDimension
+                )
             }
         }
     }

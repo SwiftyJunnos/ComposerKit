@@ -20,45 +20,38 @@ final class MVCHomeComposer: Composer {
     
     lazy var composeLayout = UICollectionViewComposeLayout { env in
         Section {
-            Group(style: .full) {
-                Item(style: .full)
-                Item(style: .full)
+            Group(style: .flow) {
+                for _ in (1...4) {
+                    Item(
+                        style: .grid(
+                            width: .fractionalWidth(0.5),
+                            height: .fractionalWidth(0.5)
+                        )
+                    )
+                }
             }
+            .interItemSpacing(.fixed(8.0))
         }
         .interGroupSpacing(8.0)
+        .orthogonalScrolling(.groupPaging)
         .boundaryItems {
             BoundaryItem(.header)
+                .widthDimension(.fractionalWidth(1.0))
+                .heightDimension(.absolute(100))
             BoundaryItem(.footer)
-        }
-        .decorationItems {
-            DecorationItem(.background)
+                .widthDimension(.fractionalWidth(1.0))
+                .heightDimension(.absolute(150))
         }
         
         Section {
             Group(style: .grid) {
-//                Group(style: .full) {
-//                    Item(style: .grid)
-//                }
-                
-//                Item(style: .grid)
-//                    .size(.estimated(50))
-                
-//                Item()
-//                    .widthDimension(.fractionalHeight(1.0))
-//                
-//                if Int.random(in: 1...5) == 2 {
-//                    Item()
-//                } else {
-//                    Item()
-//                }
-                
                 for _ in (1...10) {
                     Item()
                         .size(.fractionalWidth(1.0 / 10))
                 }
             }
         }
-    }
+    }.interSectionSpacing(12.0)
     
     var dataSource: HomeDataSource?
     
@@ -75,8 +68,8 @@ final class MVCHomeComposer: Composer {
         guard datas.count != .zero else { return }
         var snapshot = HomeSnapshot()
         snapshot.appendSections([.home, .list])
-        snapshot.appendItems(Array(datas.prefix(2)), toSection: .home)
-        snapshot.appendItems(Array(datas[2..<datas.count]), toSection: .list)
+        snapshot.appendItems(Array(datas.prefix(5)), toSection: .home)
+        snapshot.appendItems(Array(datas[5..<datas.count]), toSection: .list)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     
@@ -97,6 +90,29 @@ final class MVCHomeComposer: Composer {
                 )
             }
         )
+        
+        let headerRegistration = UICollectionView.SupplementaryRegistration(
+            elementKind: UICollectionView.elementKindSectionHeader
+        ) { header,elementKind,indexPath in
+            header.backgroundColor = .systemBlue
+        }
+        
+        let footerRegistration = UICollectionView.SupplementaryRegistration(
+            elementKind: UICollectionView.elementKindSectionFooter
+        ) { footer, elementKind, indexPath in
+            footer.backgroundColor = .systemRed
+        }
+        
+        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            if kind == UICollectionView.elementKindSectionHeader {
+                return collectionView.dequeueConfiguredReusableSupplementary(
+                    using: headerRegistration, for: indexPath)
+            } else if kind == UICollectionView.elementKindSectionFooter {
+                return collectionView.dequeueConfiguredReusableSupplementary(
+                    using: footerRegistration, for: indexPath)
+            }
+            return UICollectionReusableView()
+        }
     }
     
 }

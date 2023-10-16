@@ -12,20 +12,14 @@ public typealias Group = ComposerKit.ComposeGroup
 public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
     public typealias ItemProvider = () -> [BuildableItem]
     
-    // MARK: - Enums
-    
-    @frozen
-    public enum Direction {
-        case horizontal, vertical
-    }
-    
     // MARK: - Layout Parameters
     
     struct GroupParameters: LayoutParameters {
-        var direction: Direction
+        var direction: UICollectionView.ScrollDirection
         var widthDimension: NSCollectionLayoutDimension = .estimated(1.0)
         var heightDimension: NSCollectionLayoutDimension = .estimated(1.0)
         var contentInsets: NSDirectionalEdgeInsets = .zero
+        var interItemSpacing: NSCollectionLayoutSpacing = .fixed(.zero)
         var edgeSpacing: NSCollectionLayoutEdgeSpacing?
     }
     
@@ -85,6 +79,18 @@ public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
         )
     }
     
+    // MARK: - Direction
+    
+    public func direction(_ direction: UICollectionView.ScrollDirection) -> Self {
+        return with(\.direction, value: direction)
+    }
+    
+    // MARK: - Spacing
+    
+    public func interItemSpacing(_ spacing: NSCollectionLayoutSpacing) -> Self {
+        return with(\.interItemSpacing, value: spacing)
+    }
+    
 }
 
 extension ComposeGroup: BuildableGroup {
@@ -106,18 +112,21 @@ private extension ComposeGroup {
     // MARK: - Private Group Maker
     
     func makeGroup() -> NSCollectionLayoutGroup {
-        return group(
+        let group = group(
             size: NSCollectionLayoutSize(
                 widthDimension: layoutParameters.widthDimension,
                 heightDimension: layoutParameters.heightDimension),
             direction: layoutParameters.direction,
             items: itemProvider().map { $0.make() }
         )
+        group.contentInsets = layoutParameters.contentInsets
+        group.interItemSpacing = layoutParameters.interItemSpacing
+        return group
     }
     
     func group(
         size: NSCollectionLayoutSize,
-        direction: Direction,
+        direction: UICollectionView.ScrollDirection,
         items: [NSCollectionLayoutItem]
     ) -> NSCollectionLayoutGroup {
         switch direction {
@@ -125,6 +134,8 @@ private extension ComposeGroup {
             return NSCollectionLayoutGroup.vertical(layoutSize: size, subitems: items)
         case .horizontal:
             return NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: items)
+        @unknown default:
+            fatalError("ScrollDirection case is added. Please handle new one.")
         }
     }
     

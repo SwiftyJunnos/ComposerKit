@@ -47,7 +47,7 @@ final class MVCHomeViewController: UIViewController, ComposableView {
         super.viewDidAppear(animated)
         
         datas.send(
-            (1...25).map { HomeCellModel(number: $0) }
+            (1...500).map { HomeCellModel(number: $0) }
         )
     }
     

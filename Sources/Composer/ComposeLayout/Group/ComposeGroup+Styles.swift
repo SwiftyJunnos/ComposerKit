@@ -31,14 +31,14 @@ extension ComposeGroup {
                 )
             case .list:
                 return .init(
-                    direction: .vertical,
+                    direction: .horizontal,
                     widthDimension: .fractionalWidth(1.0),
                     heightDimension: .estimated(1.0)
                 )
             case .flow:
                 return .init(
                     direction: .horizontal,
-                    widthDimension: .estimated(1.0)
+                    widthDimension: .fractionalWidth(1.0)
                 )
             case .grid:
                 return .init(

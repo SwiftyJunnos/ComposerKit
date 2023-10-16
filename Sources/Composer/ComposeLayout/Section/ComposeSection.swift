@@ -66,6 +66,12 @@ public struct ComposeSection: Composable {
         return with(\.decorationItems, value: decorationItemProvider())
     }
     
+    // MARK: - Orthogonal Scrolling Behavior
+    
+    public func orthogonalScrolling(_ behavior: UICollectionLayoutSectionOrthogonalScrollingBehavior) -> Self {
+        return with(\.orthogonalScrollingBehavior, value: behavior)
+    }
+    
     // MARK: - Visible Items Invalidation Handler
     
     public func visibleItemsInvalidationHandler(
@@ -85,8 +91,9 @@ extension ComposeSection: BuildableSection {
         section.interGroupSpacing = layoutParameters.interGroupSpacing
         section.boundarySupplementaryItems = layoutParameters.boundaryItems.map { $0.make() }
         section.decorationItems = layoutParameters.decorationItems.map { $0.make() }
+        section.orthogonalScrollingBehavior = layoutParameters.orthogonalScrollingBehavior
         section.visibleItemsInvalidationHandler = layoutParameters.visibleItemsInvalidationHandler
-        return NSCollectionLayoutSection(group: groupProvider().make())
+        return section
     }
     
 }
