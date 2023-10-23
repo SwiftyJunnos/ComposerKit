@@ -1,6 +1,6 @@
 //
-//  MVCHomeComposer.swift
-//  ComposerExample
+//  BlockViewComposer.swift
+//  ColorBlocks
 //
 //  Created by 이창준 on 9/29/23.
 //
@@ -9,10 +9,10 @@ import UIKit
 
 import ComposerKit
 
-final class MVCHomeComposer: Composer {
-    typealias HomeDataSource = UICollectionViewDiffableDataSource<HomeSection, HomeCellModel>
-    typealias HomeSnapshot = NSDiffableDataSourceSnapshot<HomeSection, HomeCellModel>
-    typealias HomeCellRegistration = UICollectionView.CellRegistration<HomeCell, HomeCellModel>
+final class BlockViewComposer: Composer {
+    typealias HomeDataSource = UICollectionViewDiffableDataSource<BlockSection, BlockCellModel>
+    typealias HomeSnapshot = NSDiffableDataSourceSnapshot<BlockSection, BlockCellModel>
+    typealias HomeCellRegistration = UICollectionView.CellRegistration<BlockCell, BlockCellModel>
     
     // MARK: - Properties
     
@@ -64,7 +64,7 @@ final class MVCHomeComposer: Composer {
     
     // MARK: - Binding
     
-    func bind(_ datas: [HomeCellModel]) {
+    func bind(_ datas: [BlockCellModel]) {
         guard datas.count != .zero else { return }
         var snapshot = HomeSnapshot()
         snapshot.appendSections([.home, .list])

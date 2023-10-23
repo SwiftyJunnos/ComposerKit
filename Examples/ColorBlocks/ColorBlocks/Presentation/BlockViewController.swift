@@ -1,6 +1,6 @@
 //
-//  MVCHomeViewController.swift
-//  ComposerExample
+//  BlockViewController.swift
+//  ColorBlocks
 //
 //  Created by 이창준 on 9/25/23.
 //
@@ -10,7 +10,7 @@ import UIKit
 
 import ComposerKit
 
-final class MVCHomeViewController: UIViewController, ComposableView {
+final class BlockViewController: UIViewController, ComposableView {
     
     // MARK: - Components
     
@@ -28,9 +28,9 @@ final class MVCHomeViewController: UIViewController, ComposableView {
     
     // MARK: - Properties
     
-    lazy var composer: MVCHomeComposer? = .init(collectionView: collectionView)
+    lazy var composer: BlockViewComposer? = .init(collectionView: collectionView)
     
-    private var datas = CurrentValueSubject<[HomeCellModel], Never>([])
+    private var datas = CurrentValueSubject<[BlockCellModel], Never>([])
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -47,13 +47,13 @@ final class MVCHomeViewController: UIViewController, ComposableView {
         super.viewDidAppear(animated)
         
         datas.send(
-            (1...500).map { HomeCellModel(number: $0) }
+            (1...500).map { BlockCellModel(number: $0) }
         )
     }
     
     // MARK: - Composer
     
-    func bind(composer: MVCHomeComposer) {
+    func bind(composer: BlockViewComposer) {
         datas
             .sink { datas in
                 composer.bind(datas)
@@ -63,7 +63,7 @@ final class MVCHomeViewController: UIViewController, ComposableView {
     
 }
 
-private extension MVCHomeViewController {
+private extension BlockViewController {
     
     // MARK: - UI Configuration
     

@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  ComposerExample
+//  ColorBlocks
 //
 //  Created by 이창준 on 9/25/23.
 //
@@ -15,10 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        let homeVC = MVCHomeViewController()
-        let navigationVC = UINavigationController(rootViewController: homeVC)
+        let blockViewController = BlockViewController()
+        let navigationViewController = UINavigationController(rootViewController: blockViewController)
         
-        window.rootViewController = navigationVC
+        window.rootViewController = navigationViewController
         
         self.window = window
         window.makeKeyAndVisible()

@@ -1,6 +1,6 @@
 //
-//  HomeCell.swift
-//  ComposerExample
+//  BlockCell.swift
+//  ColorBlocks
 //
 //  Created by 이창준 on 9/30/23.
 //
@@ -9,11 +9,11 @@ import UIKit
 
 import ComposerKit
 
-struct HomeCellModel: Hashable {
+struct BlockCellModel: Hashable {
     let number: Int
 }
 
-final class HomeCell: UICollectionViewCell {
+final class BlockCell: UICollectionViewCell {
     
     static let randomColors: [UIColor] = [
         .systemRed, .systemBlue, .systemGreen, .systemYellow, .systemPink, .systemOrange, .systemCyan
@@ -42,9 +42,9 @@ final class HomeCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
-    func bind(_ model: HomeCellModel) {
+    func bind(_ model: BlockCellModel) {
         self.label.text = String(model.number)
-        self.backgroundColor = HomeCell.randomColors.randomElement()
+        self.backgroundColor = BlockCell.randomColors.randomElement()
     }
     
 }

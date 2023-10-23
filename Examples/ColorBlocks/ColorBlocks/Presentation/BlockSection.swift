@@ -1,12 +1,12 @@
 //
-//  HomeSection.swift
-//  ComposerKitExample
+//  BlockSection.swift
+//  ColorBlocks
 //
 //  Created by 이창준 on 10/9/23.
 //
 
 import ComposerKit
 
-enum HomeSection: Hashable {
+enum BlockSection: Hashable {
     case home, list
 }
