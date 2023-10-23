@@ -18,12 +18,11 @@ public struct ComposeBoundaryItem: Composable, Resizable {
         var alignment: NSRectAlignment
         var widthDimension: NSCollectionLayoutDimension = .estimated(1.0)
         var heightDimension: NSCollectionLayoutDimension = .estimated(1.0)
-        var zIndex: Int = .zero
         var contentInsets: NSDirectionalEdgeInsets = .zero
         var edgeSpacing: NSCollectionLayoutEdgeSpacing?
+        var absoluteOffset: CGPoint = .zero
+        var zIndex: Int = 0
         var pinToVisibleBounds: Bool = false
-        var containerAnchor: NSCollectionLayoutAnchor = .init(edges: .all)
-        var itemAnchor: NSCollectionLayoutAnchor = .init(edges: .all)
     }
     
     // MARK: - Properties
@@ -58,6 +57,12 @@ public struct ComposeBoundaryItem: Composable, Resizable {
         return with(\.alignment, value: alignment)
     }
     
+    // MARK: - Absolute Offset
+    
+    public func absoluteOffset(_ offset: CGPoint) -> Self {
+        return with(\.absoluteOffset, value: offset)
+    }
+    
     // MARK: - Pin to Visible Bounds
     
     public func pinToVisibleBounds(_ pinToVisibleBounds: Bool) -> Self {
@@ -70,16 +75,6 @@ public struct ComposeBoundaryItem: Composable, Resizable {
         return with(\.zIndex, value: zIndex)
     }
     
-    // MARK: - Layout Anchors
-    
-    public func containerAnchor(_ anchor: NSCollectionLayoutAnchor) -> Self {
-        return with(\.containerAnchor, value: anchor)
-    }
-    
-    public func itemAnchor(_ anchor: NSCollectionLayoutAnchor) -> Self {
-        return with(\.itemAnchor, value: anchor)
-    }
-    
 }
 
 extension ComposeBoundaryItem: BuildableBoundaryItem {
@@ -88,8 +83,8 @@ extension ComposeBoundaryItem: BuildableBoundaryItem {
         let boundaryItem = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: layoutParameters.size,
             elementKind: layoutParameters.elementKind,
-            containerAnchor: layoutParameters.containerAnchor,
-            itemAnchor: layoutParameters.itemAnchor
+            alignment: layoutParameters.alignment,
+            absoluteOffset: layoutParameters.absoluteOffset
         )
         boundaryItem.pinToVisibleBounds = layoutParameters.pinToVisibleBounds
         boundaryItem.zIndex = layoutParameters.zIndex

@@ -28,7 +28,7 @@ final class BlockViewController: UIViewController, ComposableView {
     
     // MARK: - Properties
     
-    lazy var composer: BlockViewComposer? = .init(collectionView: collectionView)
+    var composer: BlockViewComposer?
     
     private var datas = CurrentValueSubject<[BlockCellModel], Never>([])
     
@@ -68,6 +68,7 @@ private extension BlockViewController {
     // MARK: - UI Configuration
     
     func configureUI() {
+        composer = BlockViewComposer(collectionView: collectionView)
         view.addSubview(collectionView)
     }
     

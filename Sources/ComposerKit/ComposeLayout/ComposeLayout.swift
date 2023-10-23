@@ -7,7 +7,7 @@
 
 import UIKit
 
-public typealias Compose = ComposerKit.UICollectionViewComposeLayout
+public typealias ComposeLayout = ComposerKit.UICollectionViewComposeLayout
 
 @MainActor
 public struct UICollectionViewComposeLayout {

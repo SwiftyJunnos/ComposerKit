@@ -19,10 +19,13 @@ final class BlockViewComposer: Composer {
     var collectionView: UICollectionView
     
     var composeLayout: UICollectionViewComposeLayout {
-        Compose { env in
+        ComposeLayout { env in
             Section {
                 Group(style: .grid, numberOfItems: 4) {
-                    Item(style: .grid(width: .fractionalWidth(0.5), height: .fractionalWidth(0.5)))
+                    Item(style: .grid(
+                        width: .fractionalWidth(0.5),
+                        height: .fractionalWidth(0.5)
+                    ))
                 }
                 .interItemSpacing(.fixed(8.0))
             }
