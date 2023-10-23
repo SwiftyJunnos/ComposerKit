@@ -18,40 +18,36 @@ final class BlockViewComposer: Composer {
     
     var collectionView: UICollectionView
     
-    lazy var composeLayout = UICollectionViewComposeLayout { env in
-        Section {
-            Group(style: .flow) {
-                for _ in (1...4) {
-                    Item(
-                        style: .grid(
-                            width: .fractionalWidth(0.5),
-                            height: .fractionalWidth(0.5)
-                        )
-                    )
+    var composeLayout: UICollectionViewComposeLayout {
+        Compose { env in
+            Section {
+                Group(style: .grid, numberOfItems: 4) {
+                    Item(style: .grid(width: .fractionalWidth(0.5), height: .fractionalWidth(0.5)))
                 }
+                .interItemSpacing(.fixed(8.0))
             }
-            .interItemSpacing(.fixed(8.0))
-        }
-        .interGroupSpacing(8.0)
-        .orthogonalScrolling(.groupPaging)
-        .boundaryItems {
-            BoundaryItem(.header)
-                .widthDimension(.fractionalWidth(1.0))
-                .heightDimension(.absolute(100))
-            BoundaryItem(.footer)
-                .widthDimension(.fractionalWidth(1.0))
-                .heightDimension(.absolute(150))
-        }
-        
-        Section {
-            Group(style: .grid) {
-                for _ in (1...10) {
-                    Item()
-                        .size(.fractionalWidth(1.0 / 10))
+            .interGroupSpacing(8.0)
+            .orthogonalScrolling(.groupPaging)
+            .boundaryItems {
+                BoundaryItem(.header)
+                    .widthDimension(.fractionalWidth(1.0))
+                    .heightDimension(.absolute(100))
+                BoundaryItem(.footer)
+                    .widthDimension(.fractionalWidth(1.0))
+                    .heightDimension(.absolute(150))
+            }
+            
+            Section {
+                Group(style: .grid) {
+                    for _ in (1...10) {
+                        Item()
+                            .size(.fractionalWidth(1.0 / 10))
+                    }
                 }
             }
         }
-    }.interSectionSpacing(12.0)
+        .interSectionSpacing(12.0)
+    }
     
     var dataSource: HomeDataSource?
     
@@ -67,9 +63,9 @@ final class BlockViewComposer: Composer {
     func bind(_ datas: [BlockCellModel]) {
         guard datas.count != .zero else { return }
         var snapshot = HomeSnapshot()
-        snapshot.appendSections([.home, .list])
-        snapshot.appendItems(Array(datas.prefix(5)), toSection: .home)
-        snapshot.appendItems(Array(datas[5..<datas.count]), toSection: .list)
+        snapshot.appendSections([.large, .small])
+        snapshot.appendItems(Array(datas.prefix(5)), toSection: .large)
+        snapshot.appendItems(Array(datas[5..<datas.count]), toSection: .small)
         dataSource?.apply(snapshot, animatingDifferences: true)
     }
     

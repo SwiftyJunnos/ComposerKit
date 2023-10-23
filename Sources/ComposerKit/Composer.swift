@@ -45,7 +45,7 @@ public protocol Composer: AnyObject {
     ///     }
     ///   }
     /// }
-    var composeLayout: UICollectionViewComposeLayout { get set }
+    var composeLayout: UICollectionViewComposeLayout { get }
     var dataSource: UICollectionViewDiffableDataSource<SectionModelType, ItemModelType>? { get set }
     
     init(collectionView: UICollectionView)

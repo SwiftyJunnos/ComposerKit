@@ -7,6 +7,8 @@
 
 import UIKit
 
+public typealias Compose = ComposerKit.UICollectionViewComposeLayout
+
 @MainActor
 public struct UICollectionViewComposeLayout {
     public typealias SectionProvider = (NSCollectionLayoutEnvironment) -> [BuildableSection]

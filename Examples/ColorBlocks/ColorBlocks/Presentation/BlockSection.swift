@@ -8,5 +8,5 @@
 import ComposerKit
 
 enum BlockSection: Hashable {
-    case home, list
+    case large, small
 }

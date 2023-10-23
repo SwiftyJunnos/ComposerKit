@@ -1,17 +1,17 @@
 //
-//  MultipleComponentsBuilder.swift
+//  ComponentsBuilder.swift
 //  ComposerKit
 //
 //  Created by 이창준 on 10/14/23.
 //
 
-typealias SectionBuilder = MultipleComponentsBuilder<BuildableSection>
-typealias ItemBuilder = MultipleComponentsBuilder<BuildableItem>
-typealias BoundaryItemBuilder = MultipleComponentsBuilder<BuildableBoundaryItem>
-typealias DecorationItemBuilder = MultipleComponentsBuilder<BuildableDecorationItem>
+typealias SectionBuilder = ComponentsBuilder<BuildableSection>
+typealias ItemBuilder = ComponentsBuilder<BuildableItem>
+typealias BoundaryItemBuilder = ComponentsBuilder<BuildableBoundaryItem>
+typealias DecorationItemBuilder = ComponentsBuilder<BuildableDecorationItem>
 
 @resultBuilder
-public struct MultipleComponentsBuilder<ComposeComponent> {
+public struct ComponentsBuilder<ComposeComponent> {
     
     public static func buildBlock(_ components: [ComposeComponent]...) -> [ComposeComponent] {
         return components.flatMap { $0 }

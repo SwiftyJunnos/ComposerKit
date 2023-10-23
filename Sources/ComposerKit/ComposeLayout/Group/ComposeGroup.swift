@@ -11,6 +11,7 @@ public typealias Group = ComposerKit.ComposeGroup
 
 public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
     public typealias ItemProvider = () -> [BuildableItem]
+    public typealias SingleItemProvider = () -> BuildableItem
     
     // MARK: - Layout Parameters
     
@@ -41,6 +42,21 @@ public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
             self.layoutParameters = GroupParameters(direction: .horizontal)
         }
         self.itemProvider = itemProvider
+    }
+    
+    public init(
+        style: Style? = nil,
+        numberOfItems: Int,
+        _ itemProvider: @escaping SingleItemProvider
+    ) {
+        if let style {
+            self.layoutParameters = style.layoutParameters
+        } else {
+            self.layoutParameters = GroupParameters(direction: .horizontal)
+        }
+        self.itemProvider = {
+            return (0..<numberOfItems).map { _ in itemProvider() }
+        }
     }
     
     // MARK: - Resizable

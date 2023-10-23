@@ -10,7 +10,7 @@ import UIKit
 public typealias Section = ComposerKit.ComposeSection
 
 public struct ComposeSection: Composable {
-    public typealias GroupProvider = () -> ComposeGroup
+    public typealias GroupProvider = () -> BuildableGroup
     public typealias BoundaryItemProvider = () -> [BuildableBoundaryItem]
     public typealias DecorationItemProvider = () -> [BuildableDecorationItem]
     
@@ -37,7 +37,6 @@ public struct ComposeSection: Composable {
     // MARK: - Initializer
     
     public init(
-        @SingleComponentBuilder
         _ groupProvider: @escaping GroupProvider
     ) {
         self.groupProvider = groupProvider
