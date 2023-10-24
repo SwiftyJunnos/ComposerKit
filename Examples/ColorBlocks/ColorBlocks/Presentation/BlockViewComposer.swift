@@ -32,12 +32,15 @@ final class BlockViewComposer: Composer {
             .interGroupSpacing(8.0)
             .orthogonalScrolling(.groupPaging)
             .boundaryItems {
-                BoundaryItem(.header)
-                    .widthDimension(.fractionalWidth(1.0))
-                    .heightDimension(.absolute(100))
-                BoundaryItem(.footer)
-                    .widthDimension(.fractionalWidth(1.0))
-                    .heightDimension(.absolute(150))
+                Header()
+//                    .widthDimension(.fractionalWidth(1.0))
+//                    .heightDimension(.absolute(100))
+//                BoundaryItem(.header)
+//                    .widthDimension(.fractionalWidth(1.0))
+//                    .heightDimension(.absolute(100))
+//                BoundaryItem(.footer)
+//                    .widthDimension(.fractionalWidth(1.0))
+//                    .heightDimension(.absolute(150))
             }
             
             Section {

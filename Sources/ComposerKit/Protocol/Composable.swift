@@ -9,12 +9,13 @@ import UIKit
 
 internal protocol Composable {
     associatedtype Parameters: LayoutParameters
+    
     var layoutParameters: Parameters { get set }
 }
 
 extension Composable {
     
-    var size: NSCollectionLayoutSize {
+    internal var size: NSCollectionLayoutSize {
         return layoutParameters.size
     }
     

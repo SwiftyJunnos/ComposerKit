@@ -16,7 +16,7 @@ internal protocol LayoutParameters {
 }
 
 extension LayoutParameters {
-    var size: NSCollectionLayoutSize {
+    internal var size: NSCollectionLayoutSize {
         return NSCollectionLayoutSize(
             widthDimension: self.widthDimension,
             heightDimension: self.heightDimension

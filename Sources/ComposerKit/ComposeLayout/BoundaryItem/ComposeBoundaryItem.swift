@@ -7,19 +7,17 @@
 
 import UIKit
 
-public typealias BoundaryItem = ComposerKit.ComposeBoundaryItem
-
 public struct ComposeBoundaryItem: Composable, Resizable {
     
     // MARK: - Layout Parameters
     
-    struct BoundaryItemParameters: LayoutParameters {
+    public struct BoundaryItemParameters: LayoutParameters {
         var elementKind: String
         var alignment: NSRectAlignment
-        var widthDimension: NSCollectionLayoutDimension = .estimated(1.0)
-        var heightDimension: NSCollectionLayoutDimension = .estimated(1.0)
-        var contentInsets: NSDirectionalEdgeInsets = .zero
-        var edgeSpacing: NSCollectionLayoutEdgeSpacing?
+        public var widthDimension: NSCollectionLayoutDimension = .estimated(1.0)
+        public var heightDimension: NSCollectionLayoutDimension = .estimated(1.0)
+        public var contentInsets: NSDirectionalEdgeInsets = .zero
+        public var edgeSpacing: NSCollectionLayoutEdgeSpacing?
         var absoluteOffset: CGPoint = .zero
         var zIndex: Int = 0
         var pinToVisibleBounds: Bool = false
@@ -27,7 +25,7 @@ public struct ComposeBoundaryItem: Composable, Resizable {
     
     // MARK: - Properties
     
-    var layoutParameters: BoundaryItemParameters
+    public var layoutParameters: BoundaryItemParameters
     
     // MARK: - Initializer
     
