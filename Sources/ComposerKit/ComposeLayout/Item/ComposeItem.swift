@@ -9,7 +9,8 @@ import UIKit
 
 public typealias Item = ComposerKit.ComposeItem
 
-public struct ComposeItem: Composable, Resizable, Insettable, Spacable {
+public struct ComposeItem: Composable {
+    typealias Component = NSCollectionLayoutItem
     
     // MARK: - Layout Parameters
     
@@ -23,6 +24,7 @@ public struct ComposeItem: Composable, Resizable, Insettable, Spacable {
     // MARK: - Properties
     
     var layoutParameters: ItemParameters
+    var provider: (() -> AnyObject)? = nil
     
     // MARK: - Initializer
     
@@ -34,6 +36,10 @@ public struct ComposeItem: Composable, Resizable, Insettable, Spacable {
         }
     }
     
+}
+
+extension ComposeItem: Resizable {
+    
     // MARK: - Resizable
     
     public func widthDimension(_ width: NSCollectionLayoutDimension) -> ComposeItem {
@@ -43,6 +49,10 @@ public struct ComposeItem: Composable, Resizable, Insettable, Spacable {
     public func heightDimension(_ height: NSCollectionLayoutDimension) -> ComposeItem {
         return with(\.heightDimension, value: height)
     }
+    
+}
+
+extension ComposeItem: Insettable {
     
     // MARK: - Insettable
     
@@ -56,6 +66,10 @@ public struct ComposeItem: Composable, Resizable, Insettable, Spacable {
             top: top, leading: leading, bottom: bottom, trailing: trailing)
         )
     }
+    
+}
+
+extension ComposeItem: Spacable {
     
     // MARK: - Spacable
     
@@ -72,11 +86,11 @@ public struct ComposeItem: Composable, Resizable, Insettable, Spacable {
     
 }
 
-extension ComposeItem: BuildableItem {
+extension Composable where Component == NSCollectionLayoutItem,
+                           Parameters == ComposeItem.ItemParameters,
+                           SubComponent == AnyObject {
     
-    // MARK: - Buildable
-    
-    public func make() -> NSCollectionLayoutItem {
+    func make() -> NSCollectionLayoutItem {
         let item = NSCollectionLayoutItem(layoutSize: size, supplementaryItems: [])
         item.contentInsets = layoutParameters.contentInsets
         item.edgeSpacing = layoutParameters.edgeSpacing

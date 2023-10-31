@@ -10,6 +10,7 @@ import UIKit
 public typealias DecorationItem = ComposerKit.ComposeDecorationItem
 
 public struct ComposeDecorationItem: Composable, Insettable {
+    typealias Component = NSCollectionLayoutDecorationItem
     
     // MARK: - Layout Parameters
     
@@ -25,6 +26,7 @@ public struct ComposeDecorationItem: Composable, Insettable {
     // MARK: - Properties
     
     var layoutParameters: DecorationParameters
+    var provider: (() -> AnyObject)? = nil
     
     // MARK: - Initializer
     
@@ -53,9 +55,11 @@ public struct ComposeDecorationItem: Composable, Insettable {
     
 }
 
-extension ComposeDecorationItem: BuildableDecorationItem {
+extension Composable where Component == NSCollectionLayoutDecorationItem,
+                           Parameters == ComposeDecorationItem.DecorationParameters,
+                           SubComponent == AnyObject {
     
-    public func make() -> NSCollectionLayoutDecorationItem {
+    func make() -> NSCollectionLayoutDecorationItem {
         switch layoutParameters.style {
         case .background:
             let background = NSCollectionLayoutDecorationItem.background(

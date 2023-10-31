@@ -11,7 +11,7 @@ public typealias ComposeLayout = ComposerKit.UICollectionViewComposeLayout
 
 @MainActor
 public struct UICollectionViewComposeLayout {
-    public typealias SectionProvider = (NSCollectionLayoutEnvironment) -> [BuildableSection]
+    public typealias SectionProvider = (NSCollectionLayoutEnvironment) -> [ComposeSection]
     public typealias BoundaryItemProvider = () -> [ComposeBoundaryItem]
     
     // MARK: - Properties
@@ -52,8 +52,8 @@ public struct UICollectionViewComposeLayout {
     
 }
 
-extension UICollectionViewComposeLayout: BuildableLayout {
-    public func make() -> UICollectionViewCompositionalLayout {
+extension UICollectionViewComposeLayout {
+    func make() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout(
             sectionProvider: { sectionIndex, environment in
                 return sectionProvider(environment)[sectionIndex].make()

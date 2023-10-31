@@ -5,10 +5,10 @@
 //  Created by 이창준 on 10/14/23.
 //
 
-typealias SectionBuilder = ComponentsBuilder<BuildableSection>
-typealias ItemBuilder = ComponentsBuilder<BuildableItem>
-typealias BoundaryItemBuilder = ComponentsBuilder<BuildableBoundaryItem>
-typealias DecorationItemBuilder = ComponentsBuilder<BuildableDecorationItem>
+typealias SectionBuilder = ComponentsBuilder<ComposeSection>
+typealias ItemBuilder = ComponentsBuilder<ComposeItem>
+typealias BoundaryItemBuilder = ComponentsBuilder<ComposeBoundaryItem>
+typealias DecorationItemBuilder = ComponentsBuilder<ComposeDecorationItem>
 
 @resultBuilder
 public struct ComponentsBuilder<ComposeComponent> {

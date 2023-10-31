@@ -10,9 +10,11 @@ import UIKit
 public typealias Section = ComposerKit.ComposeSection
 
 public struct ComposeSection: Composable {
-    public typealias GroupProvider = () -> BuildableGroup
-    public typealias BoundaryItemProvider = () -> [BuildableBoundaryItem]
-    public typealias DecorationItemProvider = () -> [BuildableDecorationItem]
+    typealias Component = NSCollectionLayoutSection
+    
+    public typealias GroupProvider = () -> ComposeGroup
+    public typealias BoundaryItemProvider = () -> [ComposeBoundaryItem]
+    public typealias DecorationItemProvider = () -> [ComposeDecorationItem]
     
     // MARK: - Layout Parameters
     
@@ -22,8 +24,8 @@ public struct ComposeSection: Composable {
         var contentInsets: NSDirectionalEdgeInsets = .zero
         var interGroupSpacing: CGFloat = .zero
         var edgeSpacing: NSCollectionLayoutEdgeSpacing?
-        var boundaryItems: [BuildableBoundaryItem] = []
-        var decorationItems: [BuildableDecorationItem] = []
+        var boundaryItems: [ComposeBoundaryItem] = []
+        var decorationItems: [ComposeDecorationItem] = []
         var orthogonalScrollingBehavior: UICollectionLayoutSectionOrthogonalScrollingBehavior = .none
         var visibleItemsInvalidationHandler: NSCollectionLayoutSectionVisibleItemsInvalidationHandler?
     }
@@ -31,15 +33,14 @@ public struct ComposeSection: Composable {
     // MARK: - Properties
     
     var layoutParameters: SectionParameters
-    
-    private let groupProvider: GroupProvider
+    var provider: GroupProvider?
     
     // MARK: - Initializer
     
     public init(
         _ groupProvider: @escaping GroupProvider
     ) {
-        self.groupProvider = groupProvider
+        self.provider = groupProvider
         self.layoutParameters = SectionParameters()
     }
     
@@ -81,12 +82,14 @@ public struct ComposeSection: Composable {
     
 }
 
-extension ComposeSection: BuildableSection {
+extension Composable where Component == NSCollectionLayoutSection,
+                           Parameters == ComposeSection.SectionParameters,
+                           SubComponent == ComposeGroup {
     
-    // MARK: - Buildable
-    
-    public func make() -> NSCollectionLayoutSection {
-        let section = NSCollectionLayoutSection(group: groupProvider().make())
+    func make() -> NSCollectionLayoutSection {
+        guard let group = provider?() else { fatalError() }
+        
+        let section = NSCollectionLayoutSection(group: group.make())
         section.interGroupSpacing = layoutParameters.interGroupSpacing
         section.boundarySupplementaryItems = layoutParameters.boundaryItems.map { $0.make() }
         section.decorationItems = layoutParameters.decorationItems.map { $0.make() }

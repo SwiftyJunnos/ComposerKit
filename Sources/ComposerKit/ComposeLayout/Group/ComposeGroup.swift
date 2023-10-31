@@ -9,9 +9,11 @@ import UIKit
 
 public typealias Group = ComposerKit.ComposeGroup
 
-public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
-    public typealias ItemProvider = () -> [BuildableItem]
-    public typealias SingleItemProvider = () -> BuildableItem
+public struct ComposeGroup: Composable {
+    typealias Component = NSCollectionLayoutGroup
+    
+    public typealias ItemProvider = () -> [ComposeItem]
+    public typealias SingleItemProvider = () -> ComposeItem
     
     // MARK: - Layout Parameters
     
@@ -27,8 +29,7 @@ public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
     // MARK: - Properties
     
     var layoutParameters: GroupParameters
-    
-    private let itemProvider: ItemProvider
+    var provider: ItemProvider?
     
     // MARK: - Initializer
     
@@ -41,7 +42,7 @@ public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
         } else {
             self.layoutParameters = GroupParameters(direction: .horizontal)
         }
-        self.itemProvider = itemProvider
+        self.provider = itemProvider
     }
     
     public init(
@@ -54,45 +55,9 @@ public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
         } else {
             self.layoutParameters = GroupParameters(direction: .horizontal)
         }
-        self.itemProvider = {
+        self.provider = {
             return (0..<numberOfItems).map { _ in itemProvider() }
         }
-    }
-    
-    // MARK: - Resizable
-    
-    public func widthDimension(_ width: NSCollectionLayoutDimension) -> ComposeGroup {
-        return with(\.widthDimension, value: width)
-    }
-    
-    public func heightDimension(_ height: NSCollectionLayoutDimension) -> ComposeGroup {
-        return with(\.heightDimension, value: height)
-    }
-    
-    // MARK: - Insettable
-    
-    public func contentInsets(
-        top: CGFloat,
-        leading: CGFloat,
-        bottom: CGFloat,
-        trailing: CGFloat
-    ) -> ComposeGroup {
-        return with(\.contentInsets, value: NSDirectionalEdgeInsets(
-            top: top, leading: leading, bottom: bottom, trailing: trailing)
-        )
-    }
-    
-    // MARK: - Spacable
-    
-    public func edgeSpacing(
-        top: NSCollectionLayoutSpacing,
-        leading: NSCollectionLayoutSpacing,
-        bottom: NSCollectionLayoutSpacing,
-        trailing: NSCollectionLayoutSpacing
-    ) -> ComposeGroup {
-        return with(\.edgeSpacing, value: NSCollectionLayoutEdgeSpacing(
-            leading: leading, top: top, trailing: trailing, bottom: bottom)
-        )
     }
     
     // MARK: - Direction
@@ -109,38 +74,74 @@ public struct ComposeGroup: Composable, Resizable, Insettable, Spacable {
     
 }
 
-extension ComposeGroup: BuildableGroup {
+extension ComposeGroup: Resizable {
     
-    // MARK: - Buildable
+    // MARK: - Resizable
     
-    public func make() -> NSCollectionLayoutGroup {
-        return makeGroup()
+    public func widthDimension(_ width: NSCollectionLayoutDimension) -> ComposeGroup {
+        return with(\.widthDimension, value: width)
     }
     
-    public func make() -> NSCollectionLayoutItem {
-        return makeGroup()
+    public func heightDimension(_ height: NSCollectionLayoutDimension) -> ComposeGroup {
+        return with(\.heightDimension, value: height)
     }
     
 }
 
-private extension ComposeGroup {
+extension ComposeGroup: Insettable {
     
-    // MARK: - Private Group Maker
+    // MARK: - Insettable
     
-    func makeGroup() -> NSCollectionLayoutGroup {
+    public func contentInsets(
+        top: CGFloat,
+        leading: CGFloat,
+        bottom: CGFloat,
+        trailing: CGFloat
+    ) -> ComposeGroup {
+        return with(\.contentInsets, value: NSDirectionalEdgeInsets(
+            top: top, leading: leading, bottom: bottom, trailing: trailing)
+        )
+    }
+    
+}
+
+extension ComposeGroup: Spacable {
+    
+    // MARK: - Spacable
+    
+    public func edgeSpacing(
+        top: NSCollectionLayoutSpacing,
+        leading: NSCollectionLayoutSpacing,
+        bottom: NSCollectionLayoutSpacing,
+        trailing: NSCollectionLayoutSpacing
+    ) -> ComposeGroup {
+        return with(\.edgeSpacing, value: NSCollectionLayoutEdgeSpacing(
+            leading: leading, top: top, trailing: trailing, bottom: bottom)
+        )
+    }
+    
+}
+
+extension Composable where Component == NSCollectionLayoutGroup,
+                           Parameters == ComposeGroup.GroupParameters,
+                           SubComponent == [ComposeItem] {
+    
+    func make() -> NSCollectionLayoutGroup {
+        guard let item = provider?() else { fatalError() }
+        
         let group = group(
             size: NSCollectionLayoutSize(
                 widthDimension: layoutParameters.widthDimension,
                 heightDimension: layoutParameters.heightDimension),
             direction: layoutParameters.direction,
-            items: itemProvider().map { $0.make() }
+            items: item.map { $0.make() }
         )
         group.contentInsets = layoutParameters.contentInsets
         group.interItemSpacing = layoutParameters.interItemSpacing
         return group
     }
     
-    func group(
+    private func group(
         size: NSCollectionLayoutSize,
         direction: UICollectionView.ScrollDirection,
         items: [NSCollectionLayoutItem]

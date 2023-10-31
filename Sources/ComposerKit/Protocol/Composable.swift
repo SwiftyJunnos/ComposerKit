@@ -9,11 +9,18 @@ import UIKit
 
 internal protocol Composable {
     associatedtype Parameters: LayoutParameters
+    associatedtype Component
+    associatedtype SubComponent
     
     var layoutParameters: Parameters { get set }
+    var provider: (() -> SubComponent)? { get }
 }
 
 extension Composable {
+    
+    var provider: (() -> SubComponent)? {
+        return nil
+    }
     
     internal var size: NSCollectionLayoutSize {
         return layoutParameters.size

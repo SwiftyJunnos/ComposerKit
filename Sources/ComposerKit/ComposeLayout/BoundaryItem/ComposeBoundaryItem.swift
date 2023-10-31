@@ -7,11 +7,21 @@
 
 import UIKit
 
-public struct ComposeBoundaryItem: Composable, Resizable {
+public func Header() -> ComposerKit.ComposeBoundaryItem {
+    return ComposeBoundaryItem(.header)
+}
+
+public func Footer() -> ComposerKit.ComposeBoundaryItem {
+    return ComposeBoundaryItem(.footer)
+}
+
+public struct ComposeBoundaryItem: Composable {
+    typealias Component = NSCollectionLayoutBoundarySupplementaryItem
+    typealias SubComponent = AnyObject
     
     // MARK: - Layout Parameters
     
-    public struct BoundaryItemParameters: LayoutParameters {
+    struct BoundaryItemParameters: LayoutParameters {
         var elementKind: String
         var alignment: NSRectAlignment
         public var widthDimension: NSCollectionLayoutDimension = .estimated(1.0)
@@ -25,22 +35,12 @@ public struct ComposeBoundaryItem: Composable, Resizable {
     
     // MARK: - Properties
     
-    public var layoutParameters: BoundaryItemParameters
+    var layoutParameters: BoundaryItemParameters
     
     // MARK: - Initializer
     
     public init(_ style: Style) {
         self.layoutParameters = style.layoutParameters
-    }
-    
-    // MARK: - Resizable
-    
-    public func widthDimension(_ width: NSCollectionLayoutDimension) -> ComposeBoundaryItem {
-        return with(\.widthDimension, value: width)
-    }
-    
-    public func heightDimension(_ height: NSCollectionLayoutDimension) -> ComposeBoundaryItem {
-        return with(\.heightDimension, value: height)
     }
     
     // MARK: - Element Kind
@@ -75,9 +75,24 @@ public struct ComposeBoundaryItem: Composable, Resizable {
     
 }
 
-extension ComposeBoundaryItem: BuildableBoundaryItem {
+extension ComposeBoundaryItem: Resizable {
     
-    public func make() -> NSCollectionLayoutBoundarySupplementaryItem {
+    // MARK: - Resizable
+    
+    public func widthDimension(_ width: NSCollectionLayoutDimension) -> ComposeBoundaryItem {
+        return with(\.widthDimension, value: width)
+    }
+    
+    public func heightDimension(_ height: NSCollectionLayoutDimension) -> ComposeBoundaryItem {
+        return with(\.heightDimension, value: height)
+    }
+    
+}
+
+extension Composable where Component == NSCollectionLayoutBoundarySupplementaryItem,
+                           Parameters == ComposeBoundaryItem.BoundaryItemParameters {
+    
+    func make() -> NSCollectionLayoutBoundarySupplementaryItem {
         let boundaryItem = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: layoutParameters.size,
             elementKind: layoutParameters.elementKind,
