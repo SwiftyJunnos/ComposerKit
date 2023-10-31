@@ -18,11 +18,9 @@ var composeLayout: UICollectionViewComposeLayout {
         .interGroupSpacing(8.0)
         .orthogonalScrolling(.groupPaging)
         .boundaryItems {
-            BoundaryItem(.header)
-                .widthDimension(.fractionalWidth(1.0))
+            Header()
                 .heightDimension(.absolute(100))
-            BoundaryItem(.footer)
-                .widthDimension(.fractionalWidth(1.0))
+            Footer()
                 .heightDimension(.absolute(150))
         }
         
