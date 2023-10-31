@@ -24,7 +24,7 @@ public struct ComposeBoundaryItem: Composable {
     struct BoundaryItemParameters: LayoutParameters {
         var elementKind: String
         var alignment: NSRectAlignment
-        public var widthDimension: NSCollectionLayoutDimension = .estimated(1.0)
+        public var widthDimension: NSCollectionLayoutDimension = .fractionalWidth(1.0)
         public var heightDimension: NSCollectionLayoutDimension = .estimated(1.0)
         public var contentInsets: NSDirectionalEdgeInsets = .zero
         public var edgeSpacing: NSCollectionLayoutEdgeSpacing?
